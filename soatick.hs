@@ -23,10 +23,10 @@
 --   Output = max(A,B)
 --   Output goes to state file and to stdout
 
-import Data.Time.Clock
-import Data.Time.Calendar
-import System.Directory
-import System.IO
+import Data.Time.Clock ( getCurrentTime, UTCTime(utctDay) )
+import Data.Time.Calendar ( toGregorian )
+import System.Directory ( doesFileExist )
+import System.IO ( stderr, hPutStrLn )
 
 statefn = "soatick.state"
 
