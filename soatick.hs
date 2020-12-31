@@ -28,8 +28,10 @@ import Data.Time.Calendar ( toGregorian )
 import System.Directory ( doesFileExist )
 import System.IO ( stderr, hPutStrLn )
 
+statefn :: String
 statefn = "soatick.state"
 
+main :: IO ()
 main = do
   hPutStrLn stderr "soatick (c) 2011-2020 Ben Clifford <benc@hawaga.org.uk>"
   a <- serialFromState
@@ -38,6 +40,7 @@ main = do
   print o
   writeState o
 
+serialFromState :: IO Integer
 serialFromState = do
   exists <- doesFileExist statefn
   if exists then do
@@ -46,8 +49,10 @@ serialFromState = do
     return (d+1)
    else return 0
 
+writeState :: Show a => a -> IO ()
 writeState s = writeFile statefn (show s)
 
+todaysBaseSerial :: IO Integer
 todaysBaseSerial = do
    now <- (getCurrentTime :: IO UTCTime)
    let (y,mi,di) = toGregorian (utctDay now)
