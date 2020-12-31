@@ -34,14 +34,14 @@ statefn = "soatick.state"
 main :: IO ()
 main = do
   hPutStrLn stderr "soatick (c) 2011-2020 Ben Clifford <benc@hawaga.org.uk>"
-  a <- serialFromState
+  a <- nextSerialFromState
   b <- todaysBaseSerial
   let o = a `max` b
   print o
   writeState o
 
-serialFromState :: IO Integer
-serialFromState = do
+nextSerialFromState :: IO Integer
+nextSerialFromState = do
   exists <- doesFileExist statefn
   if exists then do
     c <- readFile statefn
